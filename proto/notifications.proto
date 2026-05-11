@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package notifications;
+
+service NotifService {
+  rpc SendNotification (SendRequest)    returns (NotifResponse);
+  rpc GetUserNotifs    (UserIdRequest)  returns (NotifListResponse);
+  rpc MarkAsRead       (NotifIdRequest) returns (NotifResponse);
+}
+
+message SendRequest {
+  string user_id = 1;
+  string type    = 2;
+  string message = 3;
+}
+
+message UserIdRequest {
+  string user_id = 1;
+}
+
+message NotifIdRequest {
+  string notif_id = 1;
+}
+
+message NotifResponse {
+  bool         success = 1;
+  Notification notif   = 2;
+  string       error   = 3;
+}
+
+message NotifListResponse {
+  bool                  success = 1;
+  repeated Notification notifs  = 2;
+  string                error   = 3;
+}
+
+message Notification {
+  string id         = 1;
+  string user_id    = 2;
+  string type       = 3;
+  string message    = 4;
+  bool   read       = 5;
+  string created_at = 6;
+}
