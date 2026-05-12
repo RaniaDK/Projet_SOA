@@ -1,6 +1,11 @@
 {
   "dependencies": {
     "@grpc/grpc-js": "^1.14.3",
-    "@grpc/proto-loader": "^0.8.1"
+    "@grpc/proto-loader": "^0.8.1",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.10.0",
+    "jsonwebtoken": "^9.0.3",
+    "kafkajs": "^2.2.4",
+    "uuid": "^14.0.0"
   }
 }
