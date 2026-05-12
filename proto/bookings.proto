@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package bookings;
+
+service BookingService {
+  rpc CheckAvailability (AvailRequest)    returns (AvailResponse);
+  rpc CreateBooking     (CreateRequest)   returns (BookingResponse);
+  rpc CancelBooking     (BookingIdReq)    returns (BookingResponse);
+  rpc GetBooking        (BookingIdReq)    returns (BookingResponse);
+  rpc ListUserBookings  (UserIdRequest)   returns (BookingListResponse);
+  rpc UpdateBooking     (UpdateRequest)   returns (BookingResponse);
+  rpc ListRooms         (EmptyRequest)    returns (RoomListResponse);
+}
+
+message EmptyRequest {}
+
+message AvailRequest {
+  string room_id   = 1;
+  string check_in  = 2;
+  string check_out = 3;
+}
+
+message AvailResponse {
+  bool   available = 1;
+  string error     = 2;
+}
+
+message CreateRequest {
+  string user_id   = 1;
+  string room_id   = 2;
+  string check_in  = 3;
+  string check_out = 4;
+}
+
+message BookingIdReq {
+  string booking_id = 1;
+  string user_id    = 2;
+}
+
+message UserIdRequest {
+  string user_id = 1;
+}
+
+message UpdateRequest {
+  string booking_id = 1;
+  string check_in   = 2;
+  string check_out  = 3;
+}
+
+message BookingResponse {
+  bool    success = 1;
+  Booking booking = 2;
+  string  error   = 3;
+}
+
+message BookingListResponse {
+  bool             success  = 1;
+  repeated Booking bookings = 2;
+  string           error    = 3;
+}
+
+message RoomListResponse {
+  bool           success = 1;
+  repeated Room  rooms   = 2;
+  string         error   = 3;
+}
+
+message Booking {
+  string id         = 1;
+  string user_id    = 2;
+  string room_id    = 3;
+  string check_in   = 4;
+  string check_out  = 5;
+  string status     = 6;
+  string created_at = 7;
+  Room   room       = 8;
+}
+
+message Room {
+  string id          = 1;
+  string name        = 2;
+  string type        = 3;
+  double price       = 4;
+  string description = 5;
+}
